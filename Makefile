@@ -7,14 +7,14 @@ OBJS	   = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 OUT      = clox
 CC	     = gcc
 SANS     = address,undefined,leak,pointer-subtract
-FLAGS	   = -g -std=gnu17 -Wall -Wextra -Werror -fsanitize=$(SANS) -I./include
+FLAGS	   = -std=gnu17 -I./include -Wall -Wextra -Werror -fsanitize=$(SANS) -g 
 
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) -c $< $(FLAGS) -o $@
 
 $(OUT): $(OBJS)
-	$(CC) $(OBJS) $(FLAGS) -o $@
+	@$(CC) $(OBJS) $(FLAGS) -o $@
 
 run: $(OUT)
 	@./$<
